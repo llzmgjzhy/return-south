@@ -1,0 +1,21 @@
+<view class="search">
+  <input
+    type="text"
+    placeholder="请输入关键字"
+    focus="true"
+    confirm-type="search"
+    class="searcharea"
+    bindconfirm="bindSearch"
+    bindinput="bindKeyInput"
+  />
+
+  <view  bindtap="ensureBtn">
+    <icon
+      type="search"
+      size="26"
+      bindtap="searchIcon"
+      color="black"
+
+    />
+  </view>
+</view>

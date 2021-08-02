@@ -1,0 +1,42 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/video/video",
+    "pages/me/mypage",
+    "utils/searchinput/search"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "归南",
+    "navigationBarTextStyle": "black",
+    "enablePullDownRefresh": true
+  },
+  "tabBar": {
+    "color": "#7A7E83",
+    "selectedColor": "#ed4040",
+    "borderStyle": "white",
+    "backgroundColor": "#ffffff",
+    "position": "bottom",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "image/first.png",
+        "selectedIconPath": "image/selectfirst.png",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/video/video",
+        "iconPath": "image/video.png",
+        "selectedIconPath": "image/selectvideo.png",
+        "text": "视频"
+      },
+      {
+        "pagePath": "pages/me/mypage",
+        "iconPath": "image/more.png",
+        "selectedIconPath": "image/selectmore.png",
+        "text": "我的"
+      }
+    ]
+  }
+}
