@@ -9,25 +9,25 @@
     <view class="tab-item {{currentTab==3?'active':''}}" data-current="3" bindtap="switchNav">直播</view>
   </scroll-view>
   <!-- <text>这是首页</text> -->
-  <swiper class="tab-content" current="{{currentTab}}" duration="300" bindchange="switchTab" style="height:{{winHeight}}rpx">
+  <!-- <swiper class="tab-content" current="{{currentTab}}" duration="300" bindchange="switchTab" style="height:{{winHeight}}rpx">
     <swiper-item>
       <view>这是推荐</view>
     </swiper-item>
     <swiper-item> 这是热门 </swiper-item>
     <swiper-item> 这是影视 </swiper-item>
     <swiper-item> 这是直播 </swiper-item>
-  </swiper>
+  </swiper> -->
 </view>
 
 <!-- 轮播图渲染 -->
-<view class="swiperimage">
-  <swiper >
-    <swiper-item tt:for="{{swiperList}}" tt:key="{{goods_id}}">
-      <navigator >
-        <image mode="widthFix" src="{{item.image_src}}" />
-      </navigator>
-    </swiper-item>
+<view class="swiperimage" style="height:{{winHeight}}rpx">
+  <swiper tt:for="{{swiperList}}">
+    <navigator url="/pages/newsDetail/newsDetail?newsid={{item.url}}" navigate hover-class="className">
+      <swiper-item>
+        <text>{{item.title}}</text>
+        <image mode="widthFix" src="{{item.thumbnail_pic_s}}" />
+      </swiper-item>
+    </navigator>
   </swiper>
 </view>
-
 <!-- 轮播图结束 -->

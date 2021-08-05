@@ -105,3 +105,6 @@
   list-style: none;
   z-index: 1004;
 }
+.swiperimage swiper image {
+  width: 100%;
+}

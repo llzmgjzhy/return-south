@@ -1,4 +1,6 @@
 // e:\programming\字节小程序\归南\归南\pages\index\index
+//引用发送请求的方法 需要把路径补充完整
+import { request } from "../../request/index.js"
 const app = getApp();
 Page({
   data: {
@@ -6,7 +8,6 @@ Page({
     currentTab: 0, //预设当前项的值
     scrollLeft: 0, //tab标题的滚动条位置
     showSearch: true,
-    array: [1, 2, 3, 4, 5],
     swiperList:[]
   },
   onLoad: function (options) {
@@ -34,16 +35,15 @@ Page({
     // });
 },
   initLoad() {
-    // this.showLoading();
-    tt.request({
-      url: 'https://api-hmugo-web.itheima.net/api/public/v1/home/swiperdata', // 目标服务器url
-      success: (res) => {
-        // console.log(res);
-        this.setData({
-          swiperList: res.data.message
-        })
-      }
-    });
+    // https://api.apiopen.top/getWangYiNews  网易新闻api
+    // http://v.juhe.cn/toutiao/index?type=top&key=3dc86b09a2ee2477a5baa80ee70fcdf5  聚合api
+    request({url:"http://v.juhe.cn/toutiao/index?type=top&key=3dc86b09a2ee2477a5baa80ee70fcdf5"})
+    .then(result=>{
+      console.log(result);
+      this.setData({
+              swiperList: result.data.result.data
+             })
+    })
   },
   switchTab: function (e) {
     this.setData({
@@ -60,4 +60,17 @@ Page({
       });
     }
   },
+  navToArticle:function(e){
+    console.log(e);
+    let urllocation=e.path;
+    tt.navigateTo({
+      url: urllocation, // 指定页面的url
+      success(res) {
+        console.log("调用成功");
+      },
+      fail(res) {
+        console.log("navigateTo调用失败");
+      },
+    });
+  }
 });
