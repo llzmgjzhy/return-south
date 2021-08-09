@@ -2,7 +2,6 @@
   <input
     type="text"
     placeholder="请输入关键字"
-    focus="true"
     confirm-type="search"
     class="searcharea"
     bindconfirm="bindSearch"

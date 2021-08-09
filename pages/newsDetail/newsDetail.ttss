@@ -1,2 +1,11 @@
 /* e:\programming\字节小程序\归南\归南\pages\newsDetail\newsDetail.ttss */
 @import "../../utils/wxParse/wxParse.ttss";
+  
+.mainbody{
+    font-size:16px;
+    font-family: "PingFang SC","Helvetica Neue",Helvetica,"Hiragino Sans GB",Arial,"Microsoft YaHei","微软雅黑",sans-serif,"Segoe UI Emoji","Segoe UI Symbol"; 
+    color:black;
+    line-height: 30px;
+    margin:3%;
+    width: 94%;
+}

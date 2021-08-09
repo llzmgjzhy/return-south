@@ -1,33 +1,78 @@
-<view style="margin-bottom: 40px;">
+<!-- <view style="margin-bottom: 40px;">
   <search></search>
-</view>
+</view> -->
 <view>
-  <scroll-view scroll-x="true" scroll-left="{{scrollLeft}}">
-    <view class="tab-item {{currentTab==0?'active':''}}" data-current="0" bindtap="switchNav">推荐</view>
-    <view class="tab-item {{currentTab==1?'active':''}}" data-current="1" bindtap="switchNav">热门</view>
-    <view class="tab-item {{currentTab==2?'active':''}}" data-current="2" bindtap="switchNav">影视</view>
-    <view class="tab-item {{currentTab==3?'active':''}}" data-current="3" bindtap="switchNav">直播</view>
-  </scroll-view>
-  <!-- <text>这是首页</text> -->
-  <!-- <swiper class="tab-content" current="{{currentTab}}" duration="300" bindchange="switchTab" style="height:{{winHeight}}rpx">
-    <swiper-item>
-      <view>这是推荐</view>
-    </swiper-item>
-    <swiper-item> 这是热门 </swiper-item>
-    <swiper-item> 这是影视 </swiper-item>
-    <swiper-item> 这是直播 </swiper-item>
-  </swiper> -->
-</view>
+    <scroll-view scroll-x="true" scroll-left="{{scrollLeft}}"  class="tab">
+      <view class="tab-item {{currentTab==0?'active':''}}" data-current="0" bindtap="switchNav">推荐</view>
+      <view class="tab-item {{currentTab==1?'active':''}}" data-current="1" bindtap="switchNav">娱乐</view>
+      <view class="tab-item {{currentTab==2?'active':''}}" data-current="2" bindtap="switchNav">体育</view>
+      <view class="tab-item {{currentTab==3?'active':''}}" data-current="3" bindtap="switchNav">财经</view>
+    </scroll-view>
+  </view>
 
-<!-- 轮播图渲染 -->
-<view class="swiperimage" style="height:{{winHeight}}rpx">
-  <swiper tt:for="{{swiperList}}">
-    <navigator url="/pages/newsDetail/newsDetail?newsid={{item.url}}" navigate hover-class="className">
-      <swiper-item>
-        <text>{{item.title}}</text>
-        <image mode="widthFix" src="{{item.thumbnail_pic_s}}" />
-      </swiper-item>
-    </navigator>
+  <swiper class="news-container" current="{{currentTab}}" duration="300" bindchange="switchTab" style="height:{{winHeight}}px">
+    <swiper-item>
+      <block tt:for="{{Tab1swiperList}}" tt:for-index="goodIndex">
+        <navigator url="/pages/newsDetail/newsDetail?newsid={{item.url}}" navigate hover-class="className">
+          <view class="news-item">
+            <view class="text-img">
+              <view class="text"> <text>{{item.title}}</text></view>
+              <view class="img">
+                <image mode="widthFix" src="{{item.thumbnail_pic_s}}" />
+              </view>
+            </view>
+            <view class="news-footer"><text decode="{{true}}">&nbsp;{{item.author_name}}&nbsp;&nbsp;&nbsp;&nbsp;{{Tab1times[goodIndex]}}</text></view>
+          </view>
+        </navigator>
+      </block>
+    </swiper-item>
+    <swiper-item>
+      <block tt:for="{{Tab2swiperList}}" tt:for-index="goodIndex">
+        <navigator url="/pages/newsDetail/newsDetail?newsid={{item.url}}" navigate hover-class="className">
+          <view class="news-item">
+            <view class="text-img">
+              <view class="text"> <text>{{item.title}}</text></view>
+              <view class="img">
+                <image mode="widthFix" src="{{item.imgsrc}}" />
+              </view>
+            </view>
+            <view class="news-footer"><text decode="{{true}}">&nbsp;{{item.source}}&nbsp;&nbsp;&nbsp;&nbsp;{{Tab2times[goodIndex]}}</text></view>
+          </view>
+        </navigator>
+      </block>
+    </swiper-item>
+    <swiper-item>
+      <block tt:for="{{Tab3swiperList}}" tt:for-index="goodIndex">
+        <navigator url="/pages/newsDetail/newsDetail?newsid={{item.url}}" navigate hover-class="className">
+          <view class="news-item">
+            <view class="text-img">
+              <view class="text"> <text>{{item.title}}</text></view>
+              <view class="img">
+                <image mode="widthFix" src="{{item.imgsrc}}" />
+              </view>
+            </view>
+            <view class="news-footer"><text decode="{{true}}">&nbsp;{{item.source}}&nbsp;&nbsp;&nbsp;&nbsp;{{Tab3times[goodIndex]}}</text></view>
+          </view>
+        </navigator>
+      </block>
+    </swiper-item>
+    <swiper-item>
+      <block tt:for="{{Tab4swiperList}}" tt:for-index="goodIndex">
+        <navigator url="/pages/newsDetail/newsDetail?newsid={{item.url}}" navigate hover-class="className">
+          <view class="news-item">
+            <view class="text-img">
+              <view class="text"> <text>{{item.title}}</text></view>
+              <view class="img">
+                <image mode="widthFix" src="{{item.imgsrc}}" />
+              </view>
+            </view>
+            <view class="news-footer"><text decode="{{true}}">&nbsp;{{item.source}}&nbsp;&nbsp;&nbsp;&nbsp;{{Tab4times[goodIndex]}}</text></view>
+          </view>
+        </navigator>
+      </block>
+    </swiper-item>
   </swiper>
+<view class="load">
+<loading hidden="{{hidden}}">加载中...</loading>
 </view>
-<!-- 轮播图结束 -->
+</view>

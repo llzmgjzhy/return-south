@@ -1,23 +1,30 @@
 <view>
-<scroll-view scroll-x="true" scroll-left="{{scrollLeft}}">
-<view class="tab-item {{currentTab==0?'active':''}}" data-current="0" bindtap="switchNav">推荐</view>
-<view class="tab-item {{currentTab==1?'active':''}}" data-current="1" bindtap="switchNav">热门</view>
-<view class="tab-item {{currentTab==2?'active':''}}" data-current="2" bindtap="switchNav">影视</view>
-<view class="tab-item {{currentTab==3?'active':''}}" data-current="3" bindtap="switchNav">直播</view>
-</scroll-view>
-<!-- <text>这是首页</text> -->
-<swiper class="tab-content" current="{{currentTab}}" duration="300" bindchange="switchTab" style="height:{{winHeight}}rpx">
-  <swiper-item >
-  <view>这是推荐</view>
-  </swiper-item>
-  <swiper-item>
-  这是热门
-  </swiper-item>
-  <swiper-item>
-  这是影视
-  </swiper-item>
-  <swiper-item>
-  这是直播
-  </swiper-item>
-</swiper>
+  <scroll-view scroll-x="true" scroll-left="{{scrollLeft}}">
+    <view class="tab-item {{currentTab==0?'active':''}}" data-current="0" bindtap="switchNav">热门</view>
+    <view class="tab-item {{currentTab==1?'active':''}}" data-current="1" bindtap="switchNav">美食</view>
+    <view class="tab-item {{currentTab==2?'active':''}}" data-current="2" bindtap="switchNav">搞笑</view>
+    <view class="tab-item {{currentTab==3?'active':''}}" data-current="3" bindtap="switchNav">旅游</view>
+  </scroll-view>
+  <!-- <text>这是首页</text> -->
+  <swiper class="tab-content" current="{{currentTab}}" duration="300" bindchange="switchTab" style="height:{{winHeight}}px">
+    <swiper-item>
+    <block  tt:for="{{Tab1swiperList}}">
+      <view class="background">
+        <view class="video" bindtap="hideControl">
+        <view><text>{{item.title}}</text></view>
+          <video src="{{item.playUrl}}" poster="{{item.cover.feed}}"></video>
+        </view>
+      </view>
+      </block>
+    </swiper-item>
+    <swiper-item>
+      这是热门
+    </swiper-item>
+    <swiper-item>
+      这是影视
+    </swiper-item>
+    <swiper-item>
+      这是直播
+    </swiper-item>
+  </swiper>
 </view>

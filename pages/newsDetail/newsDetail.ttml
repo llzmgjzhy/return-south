@@ -1,5 +1,5 @@
 <import src="../../utils/wxParse/wxParse.ttml"/>
-<view >
+<view class="mainbody">
   <!-- //这里data中article为bindName -->
   <template is="wxParse" data="{{wxParseData:article.nodes}}"/>
 
