@@ -1,10 +1,12 @@
 {
   "pages": [
-    "pages/index/index",
     "pages/video/video",
     "pages/me/mypage",
+    "pages/index/index",
     "utils/searchinput/search",
-    "pages/newsDetail/newsDetail"
+    "pages/newsDetail/newsDetail",
+    "pages/me/meDetail/meDetail",
+    "pages/videoDetail/vedieoDetail"
   ],
   "window": {
     "backgroundTextStyle": "light",

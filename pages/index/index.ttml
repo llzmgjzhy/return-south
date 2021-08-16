@@ -11,9 +11,9 @@
   </view>
 
   <swiper class="news-container" current="{{currentTab}}" duration="300" bindchange="switchTab" style="height:{{winHeight}}px">
-    <swiper-item>
-      <block tt:for="{{Tab1swiperList}}" tt:for-index="goodIndex">
-        <navigator url="/pages/newsDetail/newsDetail?newsid={{item.url}}" navigate hover-class="className">
+    <swiper-item style="overflow-y:scroll;hieght:100%">
+      <block tt:for="{{Tab1swiperList}}" tt:for-index="goodIndex" >
+        <navigator url='/pages/newsDetail/newsDetail?newsid={{item.url}}&title={{item.title}}&image={{item.thumbnail_pic_s}}' navigate hover-class="className">
           <view class="news-item">
             <view class="text-img">
               <view class="text"> <text>{{item.title}}</text></view>
@@ -26,47 +26,47 @@
         </navigator>
       </block>
     </swiper-item>
-    <swiper-item>
+    <swiper-item style="overflow-y:scroll;hieght:100%">
       <block tt:for="{{Tab2swiperList}}" tt:for-index="goodIndex">
         <navigator url="/pages/newsDetail/newsDetail?newsid={{item.url}}" navigate hover-class="className">
           <view class="news-item">
             <view class="text-img">
               <view class="text"> <text>{{item.title}}</text></view>
               <view class="img">
-                <image mode="widthFix" src="{{item.imgsrc}}" />
+                <image mode="widthFix" src="{{item.thumbnail_pic_s}}" />
               </view>
             </view>
-            <view class="news-footer"><text decode="{{true}}">&nbsp;{{item.source}}&nbsp;&nbsp;&nbsp;&nbsp;{{Tab2times[goodIndex]}}</text></view>
+            <view class="news-footer"><text decode="{{true}}">&nbsp;{{item.author_name}}&nbsp;&nbsp;&nbsp;&nbsp;{{Tab2times[goodIndex]}}</text></view>
           </view>
         </navigator>
       </block>
     </swiper-item>
-    <swiper-item>
+    <swiper-item style="overflow-y:scroll;hieght:100%">
       <block tt:for="{{Tab3swiperList}}" tt:for-index="goodIndex">
         <navigator url="/pages/newsDetail/newsDetail?newsid={{item.url}}" navigate hover-class="className">
           <view class="news-item">
             <view class="text-img">
               <view class="text"> <text>{{item.title}}</text></view>
               <view class="img">
-                <image mode="widthFix" src="{{item.imgsrc}}" />
+                <image mode="widthFix" src="{{item.thumbnail_pic_s}}" />
               </view>
             </view>
-            <view class="news-footer"><text decode="{{true}}">&nbsp;{{item.source}}&nbsp;&nbsp;&nbsp;&nbsp;{{Tab3times[goodIndex]}}</text></view>
+            <view class="news-footer"><text decode="{{true}}">&nbsp;{{item.author_name}}&nbsp;&nbsp;&nbsp;&nbsp;{{Tab3times[goodIndex]}}</text></view>
           </view>
         </navigator>
       </block>
     </swiper-item>
-    <swiper-item>
+    <swiper-item style="overflow-y:scroll;hieght:100%">
       <block tt:for="{{Tab4swiperList}}" tt:for-index="goodIndex">
         <navigator url="/pages/newsDetail/newsDetail?newsid={{item.url}}" navigate hover-class="className">
           <view class="news-item">
             <view class="text-img">
               <view class="text"> <text>{{item.title}}</text></view>
               <view class="img">
-                <image mode="widthFix" src="{{item.imgsrc}}" />
+                <image mode="widthFix" src="{{item.thumbnail_pic_s}}" />
               </view>
             </view>
-            <view class="news-footer"><text decode="{{true}}">&nbsp;{{item.source}}&nbsp;&nbsp;&nbsp;&nbsp;{{Tab4times[goodIndex]}}</text></view>
+            <view class="news-footer"><text decode="{{true}}">&nbsp;{{item.author_name}}&nbsp;&nbsp;&nbsp;&nbsp;{{Tab4times[goodIndex]}}</text></view>
           </view>
         </navigator>
       </block>
@@ -74,5 +74,4 @@
   </swiper>
 <view class="load">
 <loading hidden="{{hidden}}">加载中...</loading>
-</view>
 </view>

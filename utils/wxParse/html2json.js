@@ -60,6 +60,7 @@ function trimHtml(html) {
         .replace(/\/\*.*?\*\//ig, '')
         .replace(/[ ]+</ig, '<')
         .replace(/var isCrawler = 1;/,'')
+        .replace(/var isCrawler = 0;/,'')
 }
 
 

@@ -1,2 +1,12 @@
-<!-- e:\programming\字节小程序\归南\归南\pages\me\mypage.ttml -->
-<text>这是我的页面</text>
+
+<view style="height:{{winHeight}}px">
+  <view class="textclass" hidden="{{!imageshow}}">头条账号登陆</view>
+  <image src="../../image/头条.png" class="imagelogin" bindtap="login" hidden="{{!imageshow}}" />
+  <view tt-if="{{!imageshow}}">
+    <view class="afterLogintext">昵称：{{nickname}}</view>
+    <image class="afterLoginImage" src="{{imageurl}}" mode="widthFix" />
+    <view class="loginBtnView">
+      <button class="loginBtn" bindtap="loginout">退出登陆</button>
+    </view>
+  </view>
+</view>

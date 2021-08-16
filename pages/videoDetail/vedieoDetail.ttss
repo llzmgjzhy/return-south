@@ -1,0 +1,9 @@
+/* e:\programming\ByteMiniApp\归南\归南\pages\videoDetail\vedieoDetail.ttss */
+.video{
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+.video video{
+    width: 100%;
+}

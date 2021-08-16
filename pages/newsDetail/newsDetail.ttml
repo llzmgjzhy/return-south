@@ -2,5 +2,5 @@
 <view class="mainbody">
   <!-- //这里data中article为bindName -->
   <template is="wxParse" data="{{wxParseData:article.nodes}}"/>
-
+  <!-- <button open-type="share">转发到微头条</button> -->
 </view>

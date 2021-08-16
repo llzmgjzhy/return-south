@@ -1,0 +1,5 @@
+<!-- e:\programming\ByteMiniApp\归南\归南\pages\videoDetail\vedieoDetail.ttml -->
+<view >
+<view class="title">{{title}}</view>
+<video src="{{videourl}}" class="video" poster="{{cover}}"></video>
+</view>

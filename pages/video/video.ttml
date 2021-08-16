@@ -1,30 +1,76 @@
-<view>
-  <scroll-view scroll-x="true" scroll-left="{{scrollLeft}}">
+<view class="container">
+  <scroll-view scroll-x="true" scroll-left="{{scrollLeft}}" class="tab">
     <view class="tab-item {{currentTab==0?'active':''}}" data-current="0" bindtap="switchNav">热门</view>
     <view class="tab-item {{currentTab==1?'active':''}}" data-current="1" bindtap="switchNav">美食</view>
     <view class="tab-item {{currentTab==2?'active':''}}" data-current="2" bindtap="switchNav">搞笑</view>
     <view class="tab-item {{currentTab==3?'active':''}}" data-current="3" bindtap="switchNav">旅游</view>
   </scroll-view>
   <!-- <text>这是首页</text> -->
-  <swiper class="tab-content" current="{{currentTab}}" duration="300" bindchange="switchTab" style="height:{{winHeight}}px">
-    <swiper-item>
-    <block  tt:for="{{Tab1swiperList}}">
-      <view class="background">
-        <view class="video" bindtap="hideControl">
-        <view><text>{{item.title}}</text></view>
-          <video src="{{item.playUrl}}" poster="{{item.cover.feed}}"></video>
+  <swiper class="news-container" current="{{currentTab}}" duration="300" bindchange="switchTab" style="height:{{winHeight}}px">
+    <!-- <view style="height:{{winHeight}}px"> -->
+    <swiper-item  style="overflow-y: scroll;">
+     <!--<scroll-view scroll-y="true" bindscrolltolower="scrollToBottom" >-->
+        <block tt:for="{{Tab1swiperList}}" tt:key="{{index}}">
+          <view class="videos-item">
+            <view class="video">
+              <view class="text"> <text>{{item.data.title}}</text></view>
+              <view class="image-image">
+                <image tt:if="{{!Tab1videoshow[index]}}" bindtap="imageTap" data-index="{{index}}" class="aboveimage" src="../../image/start.png" mode="" />
+                <!--<navigator url="/pages/videoDetail/vedieoDetail?videourl={{item.data.playUrl}}"  hover-class="className">-->
+                <image tt:if="{{!Tab1videoshow[index]}}" bindtap="videoNavigateTo" style="width: 100%;height:244px" src="{{item.data.cover.feed}}" id="myVideo{{index}}" data-index="{{index}}" data-url="{{item.data.playUrl}}" data-cover="{{item.data.cover.feed}}" data-title="{{item.data.title}}"/>
+                <!--</navigator>-->
+                <video tt:if="{{Tab1videoshow[index]}}" class="videodetails" bindplay="videoPlay" id="myVideo{{index}}" data-index="{{index}}" autoplay="true" src="{{item.data.playUrl}}" poster="{{item.data.cover.feed}}" enable-progress-gesture="true" enable-play-gesture="true" show-playback-rate-btn="true"></video>
+              </view>
+            </view>
+          </view>
+        </block>
+      <!--</scroll-view>-->
+    </swiper-item>
+    <!-- </view> -->
+    <swiper-item style="overflow-y: scroll">
+      <block tt:for="{{Tab2swiperList}}" tt:key="{{index}}">
+        <view class="videos-item">
+          <view class="video">
+            <view class="text"> <text>{{item.data.title}}</text></view>
+            <view class="image-image">
+              <image tt:if="{{!Tab2videoshow[index]}}" bindtap="imageTap" data-index="{{index}}" class="aboveimage" src="../../image/start.png" mode="" />
+              <image tt:if="{{!Tab2videoshow[index]}}" bindtap="videoNavigateTo" style="width: 100%;height:244px" src="{{item.data.cover.detail}}" id="myVideo{{index}}" data-index="{{index}}"data-url="{{item.data.playUrl}}" data-cover="{{item.data.cover.feed}}" data-title="{{item.data.title}}" />
+              <video tt:if="{{Tab2videoshow[index]}}" class="videodetails" bindplay="videoPlay" id="myVideo{{index}}" data-index="{{index}}" autoplay="true" src="{{item.data.playUrl}}" poster="{{item.data.cover.feed}}" enable-progress-gesture="true" enable-play-gesture="true" show-playback-rate-btn="true"></video>
+            </view>
+          </view>
         </view>
-      </view>
       </block>
     </swiper-item>
-    <swiper-item>
-      这是热门
+    <swiper-item style="overflow-y: scroll">
+      <block tt:for="{{Tab3swiperList}}" tt:key="{{index}}">
+        <view class="videos-item">
+          <view class="video">
+            <view class="text"> <text>{{item.data.title}}</text></view>
+            <view class="image-image">
+              <image tt:if="{{!Tab3videoshow[index]}}" bindtap="imageTap" data-index="{{index}}" class="aboveimage" src="../../image/start.png" mode="" />
+              <image tt:if="{{!Tab3videoshow[index]}}" bindtap="videoNavigateTo" style="width: 100%;height:244px" src="{{item.data.cover.detail}}" id="myVideo{{index}}" data-index="{{index}}"data-url="{{item.data.playUrl}}" data-cover="{{item.data.cover.feed}}" data-title="{{item.data.title}}" />
+              <video tt:if="{{Tab3videoshow[index]}}" class="videodetails" bindplay="videoPlay" id="myVideo{{index}}" data-index="{{index}}" autoplay="true" src="{{item.data.playUrl}}" poster="{{item.data.cover.feed}}" enable-progress-gesture="true" enable-play-gesture="true" show-playback-rate-btn="true"></video>
+            </view>
+          </view>
+        </view>
+      </block>
     </swiper-item>
-    <swiper-item>
-      这是影视
-    </swiper-item>
-    <swiper-item>
-      这是直播
+    <swiper-item style="overflow-y: scroll">
+      <block tt:for="{{Tab4swiperList}}" tt:key="{{index}}">
+        <view class="videos-item">
+          <view class="video">
+            <view class="text"> <text>{{item.data.title}}</text></view>
+            <view class="image-image">
+              <image tt:if="{{!Tab4videoshow[index]}}" bindtap="imageTap" data-index="{{index}}" class="aboveimage" src="../../image/start.png" mode="" />
+              <image tt:if="{{!Tab4videoshow[index]}}" bindtap="videoNavigateTo" style="width: 100%;height:244px" src="{{item.data.cover.detail}}" id="myVideo{{index}}" data-index="{{index}}"data-url="{{item.data.playUrl}}" data-cover="{{item.data.cover.feed}}" data-title="{{item.data.title}}" />
+              <video tt:if="{{Tab4videoshow[index]}}" class="videodetails" bindplay="videoPlay" id="myVideo{{index}}" data-index="{{index}}" autoplay="true" src="{{item.data.playUrl}}" poster="{{item.data.cover.feed}}" enable-progress-gesture="true" enable-play-gesture="true" show-playback-rate-btn="true"></video>
+            </view>
+          </view>
+        </view>
+      </block>
     </swiper-item>
   </swiper>
+<view class="load" tt-if="{{!hidden}}">
+  <loading >加载中...</loading>
+</view>
 </view>
