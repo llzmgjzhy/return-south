@@ -5,7 +5,6 @@
     "pages/index/index",
     "utils/searchinput/search",
     "pages/newsDetail/newsDetail",
-    "pages/me/meDetail/meDetail",
     "pages/videoDetail/vedieoDetail"
   ],
   "window": {
@@ -26,7 +25,7 @@
         "pagePath": "pages/index/index",
         "iconPath": "image/first.png",
         "selectedIconPath": "image/selectfirst.png",
-        "text": "首页"
+        "text": "新闻"
       },
       {
         "pagePath": "pages/video/video",

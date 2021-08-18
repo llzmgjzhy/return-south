@@ -4,10 +4,13 @@ import { request } from '../../request/index.js';
 const app = getApp();
 Page({
 	data: {
-		winHeight: 2000,
+		winHeight: '',
 		currentTab: 0, //预设当前项的值
 		scrollLeft: 0, //tab标题的滚动条位置
-		currentPage: 1, //当前页数，默认为1
+		Tab1currentPage: 1, //当前页数，默认为1
+		Tab2currentPage: 1,
+		Tab3currentPage: 1,
+		Tab4currentPage: 1,
 		showSearch: true,
 		Tab1swiperList: [], //首页的数据
 		Tab2swiperList: [],
@@ -20,8 +23,11 @@ Page({
 		Tab3timeRecord: [],
 		Tab3times: [],
 		Tab4timeRecord: [],
+		timebefore: 0,
+		timenow: '',
 		Tab4times: [],
-		hidden: true
+		hidden: false,
+		loadingtext: '点击加载更多'
 	},
 	onReady: function(options) {},
 	onLoad: function(options) {
@@ -34,9 +40,9 @@ Page({
 				var clientWidth = res.windowWidth;
 				var rpxR = 750 / clientWidth;
 				var calc = clientHeight * rpxR - 180;
-				// console.log(calc);
+				console.log(calc);
 				that.setData({
-					winHeight: calc
+					winHeight: clientHeight + 50
 				});
 			}
 		});
@@ -89,7 +95,8 @@ Page({
 		});
 		if (e.detail.current == '1') {
 			request({
-				url: 'http://v.juhe.cn/toutiao/index?type=yule&page=1&page_size=20&is_filter=1&key=5ddab5a7bc994f03649b1920f835ca6c'
+				url:
+					'http://v.juhe.cn/toutiao/index?type=yule&page=1&page_size=20&is_filter=1&key=5ddab5a7bc994f03649b1920f835ca6c'
 			})
 				.then((result) => {
 					console.log(result);
@@ -109,7 +116,8 @@ Page({
 		}
 		if (e.detail.current == '2') {
 			request({
-				url: 'http://v.juhe.cn/toutiao/index?type=tiyu&page=1&page_size=20&is_filter=1&key=5ddab5a7bc994f03649b1920f835ca6c'
+				url:
+					'http://v.juhe.cn/toutiao/index?type=tiyu&page=1&page_size=20&is_filter=1&key=5ddab5a7bc994f03649b1920f835ca6c'
 			})
 				.then((result) => {
 					console.log(result);
@@ -129,21 +137,22 @@ Page({
 		}
 		if (e.detail.current == '3') {
 			request({
-				url: 'http://v.juhe.cn/toutiao/index?type=caijing&page=1&page_size=20&is_filter=1&key=5ddab5a7bc994f03649b1920f835ca6c'
+				url:
+					'http://v.juhe.cn/toutiao/index?type=caijing&page=1&page_size=20&is_filter=1&key=5ddab5a7bc994f03649b1920f835ca6c'
 			})
 				.then((result) => {
 					console.log(result);
 					this.setData({
-						Tab3swiperList: result.data.result.data
+						Tab4swiperList: result.data.result.data
 					});
 					for (let i = 0; i < 20; i++) {
-						this.data.Tab3swiperList[i].date = this.timesFun(this.data.Tab3swiperList[i].date);
-						this.data.Tab3timeRecord[i] = this.data.Tab3swiperList[i].date.timesString;
+						this.data.Tab4swiperList[i].date = this.timesFun(this.data.Tab4swiperList[i].date);
+						this.data.Tab4timeRecord[i] = this.data.Tab4swiperList[i].date.timesString;
 					}
 				})
 				.then((res) => {
 					this.setData({
-						Tab3times: this.data.Tab3timeRecord
+						Tab4times: this.data.Tab4timeRecord
 					});
 				});
 		}
@@ -159,16 +168,7 @@ Page({
 			timenow: e.timeStamp
 		});
 		if (this.data.timenow - this.data.timebefore <= 400) {
-			tt.pageScrollTo({
-				scrollTop: -40,
-				duration: 1000,
-				success(_res) {
-					console.log(`pageScrollTo调用成功`);
-				},
-				fail(res) {
-					console.log(`pageScrollTo调用失败`, res.errMsg);
-				}
-			});
+			// this.onPullDownRefresh()
 			this.setData({
 				timebefore: e.timeStamp
 			});
@@ -184,9 +184,10 @@ Page({
 			this.setData({
 				currentTab: cur
 			});
-			if ( e.target.dataset.current == '1') {
+			if (e.target.dataset.current == '1') {
 				request({
-					url: 'http://v.juhe.cn/toutiao/index?type=yule&page=1&page_size=20&is_filter=1&key=5ddab5a7bc994f03649b1920f835ca6c'
+					url:
+						'http://v.juhe.cn/toutiao/index?type=yule&page=1&page_size=20&is_filter=1&key=5ddab5a7bc994f03649b1920f835ca6c'
 				})
 					.then((result) => {
 						console.log(result);
@@ -194,8 +195,8 @@ Page({
 							Tab2swiperList: result.data.result.data
 						});
 						for (let i = 0; i < 20; i++) {
-							this.data.Tab2swiperList[i].date = this.timesFun(this.data.Tab2swiperList[i].date),
-							this.data.Tab2timeRecord[i] = this.data.Tab2swiperList[i].date.timesString;
+							(this.data.Tab2swiperList[i].date = this.timesFun(this.data.Tab2swiperList[i].date)),
+								(this.data.Tab2timeRecord[i] = this.data.Tab2swiperList[i].date.timesString);
 						}
 					})
 					.then((res) => {
@@ -204,9 +205,10 @@ Page({
 						});
 					});
 			}
-			if ( e.target.dataset.current == '2') {
+			if (e.target.dataset.current == '2') {
 				request({
-					url: 'http://v.juhe.cn/toutiao/index?type=tiyu&page=1&page_size=20&is_filter=1&key=5ddab5a7bc994f03649b1920f835ca6c'
+					url:
+						'http://v.juhe.cn/toutiao/index?type=tiyu&page=1&page_size=20&is_filter=1&key=5ddab5a7bc994f03649b1920f835ca6c'
 				})
 					.then((result) => {
 						console.log(result);
@@ -214,8 +216,8 @@ Page({
 							Tab3swiperList: result.data.result.data
 						});
 						for (let i = 0; i < 20; i++) {
-							this.data.Tab3swiperList[i].date = this.timesFun(this.data.Tab3swiperList[i].date),
-							this.data.Tab3timeRecord[i] = this.data.Tab3swiperList[i].date.timesString;
+							(this.data.Tab3swiperList[i].date = this.timesFun(this.data.Tab3swiperList[i].date)),
+								(this.data.Tab3timeRecord[i] = this.data.Tab3swiperList[i].date.timesString);
 						}
 					})
 					.then((res) => {
@@ -224,9 +226,10 @@ Page({
 						});
 					});
 			}
-			if ( e.target.dataset.current == '3') {
+			if (e.target.dataset.current == '3') {
 				request({
-					url: 'http://v.juhe.cn/toutiao/index?type=caijing&page=1&page_size=20&is_filter=1&key=5ddab5a7bc994f03649b1920f835ca6c'
+					url:
+						'http://v.juhe.cn/toutiao/index?type=caijing&page=1&page_size=20&is_filter=1&key=5ddab5a7bc994f03649b1920f835ca6c'
 				})
 					.then((result) => {
 						console.log(result);
@@ -294,19 +297,20 @@ Page({
 	},
 	onPullDownRefresh: function(e) {
 		console.log(this.data.currentTab);
-		let tab = this.data.currentTab;
+		var tab = this.data.currentTab;
 		if (tab == 0) {
 			request({
-				url: 'http://c.m.163.com/nc/article/headline/T1348647853363/0-40.html'
+				url:
+					'http://v.juhe.cn/toutiao/index?type=top&page=1&page_size=20&is_filter=1&key=5ddab5a7bc994f03649b1920f835ca6c'
 			})
 				.then((result) => {
 					// console.log(result);
 					this.setData({
-						Tab1swiperList: result.data.T1348647853363
+						Tab1swiperList: result.data.result.data
 					});
-					for (let i = 0; i < 41; i++) {
-						this.data.Tab1swiperList[i].mtime = this.timesFun(this.data.Tab1swiperList[i].mtime);
-						this.data.Tab1timerecord[i] = this.data.Tab1swiperList[i].mtime.timesString;
+					for (let i = 0; i < 20; i++) {
+						this.data.Tab1swiperList[i].date = this.timesFun(this.data.Tab1swiperList[i].date);
+						this.data.Tab1timerecord[i] = this.data.Tab1swiperList[i].date.timesString;
 					}
 				})
 				.then((res) => {
@@ -314,22 +318,22 @@ Page({
 						Tab1times: this.data.Tab1timerecord
 					});
 					tt.hideNavigationBarLoading(); //完成停止加载
-
 					tt.stopPullDownRefresh(); //停止下拉刷新
 				});
 		}
 		if (tab == 1) {
 			request({
-				url: 'http://c.3g.163.com/nc/article/list/T1348648517839/0-20.html'
+				url:
+					'http://v.juhe.cn/toutiao/index?type=yule&page=1&page_size=20&is_filter=1&key=5ddab5a7bc994f03649b1920f835ca6c'
 			})
 				.then((result) => {
 					console.log(result);
 					this.setData({
-						Tab2swiperList: result.data.T1348648517839
+						Tab2swiperList: result.data.result.data
 					});
 					for (let i = 0; i < 20; i++) {
-						this.data.Tab2swiperList[i].mtime = this.timesFun(this.data.Tab2swiperList[i].mtime);
-						this.data.Tab2timeRecord[i] = this.data.Tab2swiperList[i].mtime.timesString;
+						(this.data.Tab2swiperList[i].date = this.timesFun(this.data.Tab2swiperList[i].date)),
+							(this.data.Tab2timeRecord[i] = this.data.Tab2swiperList[i].date.timesString);
 					}
 				})
 				.then((res) => {
@@ -337,22 +341,22 @@ Page({
 						Tab2times: this.data.Tab2timeRecord
 					});
 					tt.hideNavigationBarLoading(); //完成停止加载
-
 					tt.stopPullDownRefresh(); //停止下拉刷新
 				});
 		}
 		if (tab == 2) {
 			request({
-				url: 'http://c.3g.163.com/nc/article/list/T1348649079062/0-20.html'
+				url:
+					'http://v.juhe.cn/toutiao/index?type=tiyu&page=1&page_size=20&is_filter=1&key=5ddab5a7bc994f03649b1920f835ca6c'
 			})
 				.then((result) => {
 					console.log(result);
 					this.setData({
-						Tab3swiperList: result.data.T1348649079062
+						Tab3swiperList: result.data.result.data
 					});
 					for (let i = 0; i < 20; i++) {
-						this.data.Tab3swiperList[i].mtime = this.timesFun(this.data.Tab3swiperList[i].mtime);
-						this.data.Tab3timeRecord[i] = this.data.Tab3swiperList[i].mtime.timesString;
+						(this.data.Tab3swiperList[i].date = this.timesFun(this.data.Tab3swiperList[i].date)),
+							(this.data.Tab3timeRecord[i] = this.data.Tab3swiperList[i].date.timesString);
 					}
 				})
 				.then((res) => {
@@ -360,22 +364,22 @@ Page({
 						Tab3times: this.data.Tab3timeRecord
 					});
 					tt.hideNavigationBarLoading(); //完成停止加载
-
 					tt.stopPullDownRefresh(); //停止下拉刷新
 				});
 		}
 		if (tab == 3) {
 			request({
-				url: 'http://c.3g.163.com/nc/article/list/T1467284926140/0-20.html '
+				url:
+					'http://v.juhe.cn/toutiao/index?type=caijing&page=1&page_size=20&is_filter=1&key=5ddab5a7bc994f03649b1920f835ca6c'
 			})
 				.then((result) => {
 					console.log(result);
 					this.setData({
-						Tab4swiperList: result.data.T1467284926140
+						Tab4swiperList: result.data.result.data
 					});
-					for (let i = 0; i < 10; i++) {
-						this.data.Tab4swiperList[i].mtime = this.timesFun(this.data.Tab4swiperList[i].mtime);
-						this.data.Tab4timeRecord[i] = this.data.Tab4swiperList[i].mtime.timesString;
+					for (let i = 0; i < 20; i++) {
+						this.data.Tab4swiperList[i].date = this.timesFun(this.data.Tab4swiperList[i].date);
+						this.data.Tab4timeRecord[i] = this.data.Tab4swiperList[i].date.timesString;
 					}
 				})
 				.then((res) => {
@@ -383,37 +387,161 @@ Page({
 						Tab4times: this.data.Tab4timeRecord
 					});
 					tt.hideNavigationBarLoading(); //完成停止加载
-
 					tt.stopPullDownRefresh(); //停止下拉刷新
 				});
 		}
 	},
-	onReachBottom: function(e) {
-		this.setData({
-			currentPage: this.data.currentPage + 1,
-		});
-		request({
-			url:
-				'http://v.juhe.cn/toutiao/index?type=top&page=' +
-				this.data.currentPage +
-				'&page_size=20&is_filter=1&key=5ddab5a7bc994f03649b1920f835ca6c'
-		})
-			.then((result) => {
-				console.log(result);
-				this.setData({
-					Tab1swiperList: this.data.Tab1swiperList.concat(result.data.result.data),
-					// winHeight: this.data.winHeight + 2000
-				});
-				for (let i = 0; i < 40; i++) {
-					this.data.Tab1swiperList[i].mtime = this.timesFun(this.data.Tab1swiperList[i].mtime);
-					this.data.Tab1timerecord[i] = this.data.Tab1swiperList[i].mtime.timesString;
-				}
-			})
-			.then((res) => {
-				this.setData({
-					Tab1times: this.data.Tab1timerecord,
-					hidden:true
-				});
+	loadmore: function(e) {
+		console.log(this.data.currentTab);
+		var Tab = this.data.currentTab;
+		if (Tab == '0') {
+			this.setData({
+				Tab1currentPage: this.data.Tab1currentPage + 1,
+				loadingtext: '请稍等'
 			});
+			request({
+				url:
+					'http://v.juhe.cn/toutiao/index?type=top&page=' +
+					this.data.Tab1currentPage +
+					'&page_size=20&is_filter=1&key=5ddab5a7bc994f03649b1920f835ca6c'
+			})
+				.then((result) => {
+					console.log(result);
+					this.setData({
+						Tab1swiperList: this.data.Tab1swiperList.concat(result.data.result.data),
+						Tab1timeRecord: []
+					});
+					var Llimit = (this.data.Tab1currentPage - 1) * 20;
+					var limit = this.data.Tab1currentPage * 20;
+					for (let i = Llimit; i < limit; i++) {
+						(this.data.Tab1swiperList[i].date = this.timesFun(this.data.Tab1swiperList[i].date)),
+							(this.data.Tab1timeRecord[i] = this.data.Tab1swiperList[i].date.timesString);
+					}
+				})
+				.then((res) => {
+					this.setData({
+						Tab1times: this.data.Tab1timeRecord,
+						loadingtext: '点击加载更多'
+					});
+				});
+		}
+		if (Tab == '1') {
+			this.setData({
+				Tab2currentPage: this.data.Tab2currentPage + 1,
+				loadingtext: '请稍等'
+			});
+			request({
+				url:
+					'http://v.juhe.cn/toutiao/index?type=yule&page=' +
+					this.data.Tab2currentPage +
+					'&page_size=20&is_filter=1&key=5ddab5a7bc994f03649b1920f835ca6c'
+			})
+				.then((result) => {
+					console.log(result);
+					this.setData({
+						Tab2swiperList: this.data.Tab2swiperList.concat(result.data.result.data)
+					});
+					var Llimit = (this.data.Tab2currentPage - 1) * 20;
+					var limit = this.data.Tab2currentPage * 20;
+					for (let i = Llimit; i < limit; i++) {
+						(this.data.Tab2swiperList[i].date = this.timesFun(this.data.Tab2swiperList[i].date)),
+							(this.data.Tab2timeRecord[i] = this.data.Tab2swiperList[i].date.timesString);
+					}
+				})
+				.then((res) => {
+					this.setData({
+						Tab2times: this.data.Tab2timeRecord,
+						loadingtext: '点击加载更多'
+					});
+				});
+		}
+		if (Tab == '2') {
+			this.setData({
+				Tab3currentPage: this.data.Tab3currentPage + 1,
+				loadingtext: '请稍等'
+			});
+			request({
+				url:
+					'http://v.juhe.cn/toutiao/index?type=tiyu&page=' +
+					this.data.Tab3currentPage +
+					'&page_size=20&is_filter=1&key=5ddab5a7bc994f03649b1920f835ca6c'
+			})
+				.then((result) => {
+					// console.log(result);
+					this.setData({
+						Tab3swiperList: this.data.Tab3swiperList.concat(result.data.result.data)
+					});
+					var Llimit = (this.data.Tab3currentPage - 1) * 20;
+					var limit = this.data.Tab3currentPage * 20;
+					for (let i = Llimit; i < limit; i++) {
+						(this.data.Tab3swiperList[i].date = this.timesFun(this.data.Tab3swiperList[i].date)),
+							(this.data.Tab3timeRecord[i] = this.data.Tab3swiperList[i].date.timesString);
+					}
+				})
+				.then((res) => {
+					this.setData({
+						Tab3times: this.data.Tab3timeRecord,
+						loadingtext: '点击加载更多'
+					});
+				});
+		}
+		if (Tab == '3') {
+			this.setData({
+				Tab4currentPage: this.data.Tab4currentPage + 1,
+				loadingtext: '请稍等'
+			});
+			request({
+				url:
+					'http://v.juhe.cn/toutiao/index?type=caijing&page=' +
+					this.data.Tab4currentPage +
+					'&page_size=20&is_filter=1&key=5ddab5a7bc994f03649b1920f835ca6c'
+			})
+				.then((result) => {
+					// console.log(result);
+					this.setData({
+						Tab4swiperList: this.data.Tab4swiperList.concat(result.data.result.data)
+					});
+					var Llimit = (this.data.Tab4currentPage - 1) * 20;
+					var limit = this.data.Tab4currentPage * 20;
+					for (let i = Llimit; i < limit; i++) {
+						(this.data.Tab4swiperList[i].date = this.timesFun(this.data.Tab4swiperList[i].date)),
+							(this.data.Tab4timeRecord[i] = this.data.Tab4swiperList[i].date.timesString);
+					}
+				})
+				.then((res) => {
+					this.setData({
+						Tab4times: this.data.Tab4timeRecord,
+						loadingtext: '点击加载更多'
+					});
+				});
+		}
 	}
 });
+// onReachBottom: function(e) {
+// 	this.setData({
+// 		currentPage: this.data.currentPage + 1,
+// 	});
+// 	request({
+// 		url:
+// 			'http://v.juhe.cn/toutiao/index?type=top&page=' +
+// 			this.data.currentPage +
+// 			'&page_size=20&is_filter=1&key=5ddab5a7bc994f03649b1920f835ca6c'
+// 	})
+// 		.then((result) => {
+// 			console.log(result);
+// 			this.setData({
+// 				Tab1swiperList: this.data.Tab1swiperList.concat(result.data.result.data),
+// 				// winHeight: this.data.winHeight + 2000
+// 			});
+// 			for (let i = 0; i < 40; i++) {
+// 				this.data.Tab1swiperList[i].mtime = this.timesFun(this.data.Tab1swiperList[i].mtime);
+// 				this.data.Tab1timerecord[i] = this.data.Tab1swiperList[i].mtime.timesString;
+// 			}
+// 		})
+// 		.then((res) => {
+// 			this.setData({
+// 				Tab1times: this.data.Tab1timerecord,
+// 				hidden:true
+// 			});
+// 		});
+// }

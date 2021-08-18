@@ -167,7 +167,8 @@
 	box-shadow: 0 10 0px #ccc;
 	height: 30px;
 	position: relative;
-	top: 30px;
+	top: 5px;
+	background: linear-gradient(to bottom, rgba(15, 15, 15, 0), rgb(187, 183, 183));;
 }
 .container {
 	min-height: 100vh;

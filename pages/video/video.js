@@ -24,7 +24,8 @@ Page({
 		Tab4currentid: 127798,
 		timebefore: 0,
 		timenow: '',
-		hidden: true,
+		hidden: false,
+		loadingtext:'点击加载更多',
 		Tab1videoshow: [], //决定显示的是图片还是视频
 		Tab2videoshow: [],
 		Tab3videoshow: [],
@@ -113,16 +114,11 @@ Page({
 			['Tab4videoshow[' + this.data.Tab4PreVideo + ']']: false,
 		});
 		if (this.data.timenow - this.data.timebefore <= 400) {
+			// this.onPullDownRefresh()
 			tt.pageScrollTo({
-				scrollTop: -40,
-				duration: 1000,
-				success(_res) {
-					console.log(`pageScrollTo调用成功`);
-				},
-				fail(res) {
-					console.log(`pageScrollTo调用失败`, res.errMsg);
-				}
-			});
+				scrollTop: -40
+			  })
+			  
 			this.setData({
 				timebefore: options.timeStamp
 			});
@@ -171,95 +167,138 @@ Page({
 		}
 	},
 	onPullDownRefresh: function(e) {
-		request({
-			url: 'https://api.apiopen.top/videoCategoryDetails?id=24'
-		})
-			.then((result) => {
-				console.log(result);
+		if (this.data.currentTab == '0') {
+			request({
+				url: 'https://api.apiopen.top/videoRecommend?id=127398' 
+			}).then((result) => {
+				// console.log(result);
 				this.setData({
 					Tab1swiperList: result.data.result
 				});
-			})
-			.then((res) => {
+			}).then((res)=>{
 				tt.hideNavigationBarLoading(); //完成停止加载
 				tt.stopPullDownRefresh(); //停止下拉刷新
-			});
-	},
-	onReachBottom: function(e) {
-		if (this.data.currentTab == '0') {
-			this.setData({
-				Tab1currentid: this.data.Tab1currentid + 1,
-				hidden: false
-			});
-			request({
-				url: 'https://api.apiopen.top/videoRecommend?id=' + this.data.Tab1currentid
-			}).then((result) => {
-				// console.log(result);
-				var tempList = this.data.Tab1swiperList;
-				var tempList = tempList.concat(result.data.result);
-				this.setData({
-					Tab1swiperList: tempList,
-					// winHeight: this.data.winHeight+2680,
-					hidden: true
-				});
-			});
+			})
 			return;
 		}
 		if (this.data.currentTab == '1') {
-			this.setData({
-				Tab2currentid: this.data.Tab2currentid + 1,
-				hidden: false
-			});
 			request({
-				url: 'https://api.apiopen.top/videoRecommend?id=' + this.data.Tab2currentid
+				url: 'https://api.apiopen.top/videoRecommend?id=127498' 
 			}).then((result) => {
 				// console.log(result);
-				var tempList = this.data.Tab2swiperList;
-				var tempList = tempList.concat(result.data.result);
 				this.setData({
-					Tab2swiperList: tempList,
-					// winHeight: this.data.winHeight + 2680,
-					hidden: true
+					Tab2swiperList: result.data.result
 				});
-			});
+			}).then((res)=>{
+				tt.hideNavigationBarLoading(); //完成停止加载
+				tt.stopPullDownRefresh(); //停止下拉刷新
+			})
+			return;
 		}
 		if (this.data.currentTab == '2') {
-			this.setData({
-				Tab3currentid: this.data.Tab3currentid + 1,
-				hidden: false
-			});
 			request({
-				url: 'https://api.apiopen.top/videoRecommend?id=' + this.data.Tab3currentid
+				url: 'https://api.apiopen.top/videoRecommend?id=127698' 
 			}).then((result) => {
-				console.log(result);
-				var tempList = this.data.Tab3swiperList;
-				var tempList = tempList.concat(result.data.result);
+				// console.log(result);
 				this.setData({
-					Tab3swiperList: tempList,
-					// winHeight: this.data.winHeight + 2680,
-					hidden: true
+					Tab3swiperList: result.data.result
 				});
-			});
+			}).then((res)=>{
+				tt.hideNavigationBarLoading(); //完成停止加载
+				tt.stopPullDownRefresh(); //停止下拉刷新
+			})
+			return;
 		}
 		if (this.data.currentTab == '3') {
-			this.setData({
-				Tab4currentid: this.data.Tab4currentid + 1,
-				hidden: false
-			});
 			request({
-				url: 'https://api.apiopen.top/videoRecommend?id=' + this.data.Tab4currentid
+				url: 'https://api.apiopen.top/videoRecommend?id=127798' 
 			}).then((result) => {
-				console.log(result);
-				var tempList = this.data.Tab4swiperList;
-				var tempList = tempList.concat(result.data.result);
+				// console.log(result);
 				this.setData({
-					Tab4swiperList: tempList,
-					// winHeight: this.data.winHeight + 2680,
-					hidden: true
+					Tab4swiperList: result.data.result
 				});
-			});
+			}).then((res)=>{
+				tt.hideNavigationBarLoading(); //完成停止加载
+				tt.stopPullDownRefresh(); //停止下拉刷新
+			})
+			return;
 		}
 	},
+	// onReachBottom: function(e) {
+	// 	if (this.data.currentTab == '0') {
+	// 		this.setData({
+	// 			Tab1currentid: this.data.Tab1currentid + 1,
+	// 			hidden: false
+	// 		});
+	// 		request({
+	// 			url: 'https://api.apiopen.top/videoRecommend?id=' + this.data.Tab1currentid
+	// 		}).then((result) => {
+	// 			// console.log(result);
+	// 			var tempList = this.data.Tab1swiperList;
+	// 			var tempList = tempList.concat(result.data.result);
+	// 			this.setData({
+	// 				Tab1swiperList: tempList,
+	// 				// winHeight: this.data.winHeight+2680,
+	// 				hidden: true
+	// 			});
+	// 		});
+	// 		return;
+	// 	}
+	// 	if (this.data.currentTab == '1') {
+	// 		this.setData({
+	// 			Tab2currentid: this.data.Tab2currentid + 1,
+	// 			hidden: false
+	// 		});
+	// 		request({
+	// 			url: 'https://api.apiopen.top/videoRecommend?id=' + this.data.Tab2currentid
+	// 		}).then((result) => {
+	// 			// console.log(result);
+	// 			var tempList = this.data.Tab2swiperList;
+	// 			var tempList = tempList.concat(result.data.result);
+	// 			this.setData({
+	// 				Tab2swiperList: tempList,
+	// 				// winHeight: this.data.winHeight + 2680,
+	// 				hidden: true
+	// 			});
+	// 		});
+	// 	}
+	// 	if (this.data.currentTab == '2') {
+	// 		this.setData({
+	// 			Tab3currentid: this.data.Tab3currentid + 1,
+	// 			hidden: false
+	// 		});
+	// 		request({
+	// 			url: 'https://api.apiopen.top/videoRecommend?id=' + this.data.Tab3currentid
+	// 		}).then((result) => {
+	// 			console.log(result);
+	// 			var tempList = this.data.Tab3swiperList;
+	// 			var tempList = tempList.concat(result.data.result);
+	// 			this.setData({
+	// 				Tab3swiperList: tempList,
+	// 				// winHeight: this.data.winHeight + 2680,
+	// 				hidden: true
+	// 			});
+	// 		});
+	// 	}
+	// 	if (this.data.currentTab == '3') {
+	// 		this.setData({
+	// 			Tab4currentid: this.data.Tab4currentid + 1,
+	// 			hidden: false
+	// 		});
+	// 		request({
+	// 			url: 'https://api.apiopen.top/videoRecommend?id=' + this.data.Tab4currentid
+	// 		}).then((result) => {
+	// 			console.log(result);
+	// 			var tempList = this.data.Tab4swiperList;
+	// 			var tempList = tempList.concat(result.data.result);
+	// 			this.setData({
+	// 				Tab4swiperList: tempList,
+	// 				// winHeight: this.data.winHeight + 2680,
+	// 				hidden: true
+	// 			});
+	// 		});
+	// 	}
+	// },
 	videoTap: function(e) {
 		var that = this;
 		var curIdx = e.currentTarget.dataset.index;
@@ -371,5 +410,79 @@ Page({
 			console.log("navigateTo调用失败");
 		  },
 		});
+	},
+	loadmore:function(e){
+		if (this.data.currentTab == '0') {
+			this.setData({
+				Tab1currentid: this.data.Tab1currentid + 1,
+				loadingtext:'请稍等'
+			});
+			request({
+				url: 'https://api.apiopen.top/videoRecommend?id=' + this.data.Tab1currentid
+			}).then((result) => {
+				// console.log(result);
+				var tempList = this.data.Tab1swiperList;
+				var tempList = tempList.concat(result.data.result);
+				this.setData({
+					Tab1swiperList: tempList,
+				    loadingtext:'点击加载更多'
+				});
+			});
+			return;
+		}
+		if (this.data.currentTab == '1') {
+			this.setData({
+				Tab2currentid: this.data.Tab2currentid + 1,
+				hidden: false
+			});
+			request({
+				url: 'https://api.apiopen.top/videoRecommend?id=' + this.data.Tab2currentid
+			}).then((result) => {
+				// console.log(result);
+				var tempList = this.data.Tab2swiperList;
+				var tempList = tempList.concat(result.data.result);
+				this.setData({
+					Tab2swiperList: tempList,
+					// winHeight: this.data.winHeight + 2680,
+					// hidden: true
+				});
+			});
+		}
+		if (this.data.currentTab == '2') {
+			this.setData({
+				Tab3currentid: this.data.Tab3currentid + 1,
+				hidden: false
+			});
+			request({
+				url: 'https://api.apiopen.top/videoRecommend?id=' + this.data.Tab3currentid
+			}).then((result) => {
+				console.log(result);
+				var tempList = this.data.Tab3swiperList;
+				var tempList = tempList.concat(result.data.result);
+				this.setData({
+					Tab3swiperList: tempList,
+					// winHeight: this.data.winHeight + 2680,
+					// hidden: true
+				});
+			});
+		}
+		if (this.data.currentTab == '3') {
+			this.setData({
+				Tab4currentid: this.data.Tab4currentid + 1,
+				hidden: false
+			});
+			request({
+				url: 'https://api.apiopen.top/videoRecommend?id=' + this.data.Tab4currentid
+			}).then((result) => {
+				console.log(result);
+				var tempList = this.data.Tab4swiperList;
+				var tempList = tempList.concat(result.data.result);
+				this.setData({
+					Tab4swiperList: tempList,
+					// winHeight: this.data.winHeight + 2680,
+					// hidden: true
+				});
+			});
+		}
 	}
 });

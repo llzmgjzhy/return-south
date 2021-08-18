@@ -11,7 +11,7 @@
   </view>
 
   <swiper class="news-container" current="{{currentTab}}" duration="300" bindchange="switchTab" style="height:{{winHeight}}px">
-    <swiper-item style="overflow-y:scroll;hieght:100%">
+    <swiper-item style="overflow-y:scroll;hieght:100%" id="swiper1">
       <block tt:for="{{Tab1swiperList}}" tt:for-index="goodIndex" >
         <navigator url='/pages/newsDetail/newsDetail?newsid={{item.url}}&title={{item.title}}&image={{item.thumbnail_pic_s}}' navigate hover-class="className">
           <view class="news-item">
@@ -25,6 +25,9 @@
           </view>
         </navigator>
       </block>
+      <view class="load" tt-if="{{!hidden}}" bindtap="loadmore">
+        <loading>{{loadingtext}}</loading>
+      </view>
     </swiper-item>
     <swiper-item style="overflow-y:scroll;hieght:100%">
       <block tt:for="{{Tab2swiperList}}" tt:for-index="goodIndex">
@@ -40,6 +43,9 @@
           </view>
         </navigator>
       </block>
+      <view class="load" tt-if="{{!hidden}}" bindtap="loadmore">
+        <loading>{{loadingtext}}</loading>
+      </view>
     </swiper-item>
     <swiper-item style="overflow-y:scroll;hieght:100%">
       <block tt:for="{{Tab3swiperList}}" tt:for-index="goodIndex">
@@ -55,6 +61,9 @@
           </view>
         </navigator>
       </block>
+      <view class="load" tt-if="{{!hidden}}" bindtap="loadmore">
+        <loading>{{loadingtext}}</loading>
+      </view>
     </swiper-item>
     <swiper-item style="overflow-y:scroll;hieght:100%">
       <block tt:for="{{Tab4swiperList}}" tt:for-index="goodIndex">
@@ -70,8 +79,8 @@
           </view>
         </navigator>
       </block>
+      <view class="load" tt-if="{{!hidden}}" bindtap="loadmore">
+        <loading>{{loadingtext}}</loading>
+      </view>
     </swiper-item>
   </swiper>
-<view class="load">
-<loading hidden="{{hidden}}">加载中...</loading>
-</view>

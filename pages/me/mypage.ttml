@@ -1,6 +1,7 @@
 
 <view style="height:{{winHeight}}px">
   <view class="textclass" hidden="{{!imageshow}}">头条账号登陆</view>
+  <view style="text-align: center" hidden="{{!imageshow}}"> 点击图标登陆</view>
   <image src="../../image/头条.png" class="imagelogin" bindtap="login" hidden="{{!imageshow}}" />
   <view tt-if="{{!imageshow}}">
     <view class="afterLogintext">昵称：{{nickname}}</view>

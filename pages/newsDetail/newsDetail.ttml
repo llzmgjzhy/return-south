@@ -3,4 +3,8 @@
   <!-- //这里data中article为bindName -->
   <template is="wxParse" data="{{wxParseData:article.nodes}}"/>
   <!-- <button open-type="share">转发到微头条</button> -->
+  <view class="button-image">
+<image src="../../image/comment.png" mode="widthFix" style="width:10%;margin-left:20%;margin-top:30%" />
+<button class="btn" open-type="share"><image src="../../image/share.png" mode="widthFix" style="width:80%;" ></button>
+</image>
 </view>
